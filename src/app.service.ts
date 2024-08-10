@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ServerRepository } from '@cores/repositories/server.repository';
-import { Prisma, Server } from '@prisma/client';
+import { Server } from '@prisma/client';
+import { PluralResponseModel } from '@common/models';
 
 @Injectable()
 export class AppService {
@@ -10,7 +11,7 @@ export class AppService {
     private serverRepository: ServerRepository,
   ) {}
 
-  async getHello(): Promise<Array<Server>> {
+  async getHello(): Promise<PluralResponseModel<Server>> {
     // await this.serverRepository.createUser({
     //   name: 'abc',
     //   imageUrl: 'abc',
@@ -19,6 +20,15 @@ export class AppService {
     //   createdAt: new Date(),
     //   updatedAt: new Date(),
     // });
-    return this.serverRepository.get({});
+    const data = await this.serverRepository.get({});
+
+    return {
+      data,
+      totalPages: data.length,
+      currentPage: 1,
+      count: data.length,
+      message: 'Get List success',
+      succeed: true,
+    };
   }
 }

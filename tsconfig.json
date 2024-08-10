@@ -18,7 +18,9 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@cores/*": ["src/cores/*"]
+      "@cores/*": ["src/cores/*"],
+      "@common/*": ["src/common/*"],
+      "@features/*": ["src/features/*"],
     }
   }
 }
